@@ -57,7 +57,7 @@
 
 \abstract{In this paper, we revisit the data of the San Antonio Heart study, and employ machine learning to predict the future development of type-2 diabetes. To build the prediction model, we use the support vector machines (SVMs) and ten features that are well-known in the literature as strong predictors of future diabetes. Due to the unbalanced nature of the dataset in terms of the class labels, we use 10-fold cross-validation to train the model and a hold-out set to validate it. The results of this study show a validation accuracy of 84.1 \% with a recall rate of 81.1 \% averaged over 100 iterations. The outcomes of this study can help in identifying the population that is at high risk of developing type-2 diabetes in future.}
 
-\onecolumn \maketitle \normalsize 
+\onecolumn \maketitle \normalsize
 \vfill
 
 \section{\uppercase{Introduction}}
@@ -65,18 +65,18 @@
 
 \noindent The global incidence of diabetes was estimated at \num{422} million in the year \num{2014}, and its prevalence among the adult population has seen in increase from \SI{4.7}{\percent} in \num{1980} to \SI{8.5}{\percent} in \num{2014} \cite{mathers_projections_2006}. In \num{2015} alone, an estimated \num{1.6} million deaths worldwide were directly attributed to diabetes. In addition, a diabetic patient is at a greater risk of developing cardiovascular disease, visual impairment and undergo limb amputations, as compared to a non-diabetic person. Due to the substantial socio-economic burdens not only to the effected families but the local healthcare system as well, the early detection, intervention and prevention of diabetes has become a paramount global concern related to health.
 
-Impaired glucose tolerance (IGT) determines the abnormal insulin response in the body, and is considered one of the most important risk factors, both by the World Health Organization (WHO) \cite{organization_definition_2006} and the American Diabetes Association (ADA) \cite{american_diabetes_association_diagnosis_2005}, for detecting diabetes in its early stage, known as pre-diabetes. The IGT can be quantified by the glucose clamp technique, however, such an experiment is risky and requires highly qualified personnel, which limits its use in clinical practice or large epidemiological studies. A less invasive technique to quantify the IGT involves an oral glucose tolerance test (OGTT) in which the blood concentrations of glucose and insulin are assessed, in response to a standardized glucose dose taken orally before two hours of the measurement, after an overnight fasting state \cite{tschritter_assessing_2003}. 
+Impaired glucose tolerance (IGT) determines the abnormal insulin response in the body, and is considered one of the most important risk factors, both by the World Health Organization (WHO) \cite{organization_definition_2006} and the American Diabetes Association (ADA) \cite{american_diabetes_association_diagnosis_2005}, for detecting diabetes in its early stage, known as pre-diabetes. The IGT can be quantified by the glucose clamp technique, however, such an experiment is risky and requires highly qualified personnel, which limits its use in clinical practice or large epidemiological studies. A less invasive technique to quantify the IGT involves an oral glucose tolerance test (OGTT) in which the blood concentrations of glucose and insulin are assessed, in response to a standardized glucose dose taken orally before two hours of the measurement, after an overnight fasting state \cite{tschritter_assessing_2003}.
 
 Studies have shown that only \SI{50}{\percent} of the cases that exhibit the IGT go on to develop diabetes in future \cite{shaw_impaired_1999,writing_committee_impaired_2002}. On the other hand, \SI{40}{\percent} diabetic subjects do not show any IGT in the initial screening. Previous studies have shown that extended the OGTT, that assesses the blood glucose and insulin intermittently during the \SI{2}{\hour} time period can better predict the future risk of type-2 diabetes \cite{abdul-ghani_what_2007}. In this paper, we extract the extended OGTT data from a population-based, epidemiological study, the San Antonio Heart Study (SAHS) \cite{burke_rapid_1999,lorenzo_trend_2006}, and use a machine learning model to predict the future risk of diabetes. We use ten features that include a subject's demographic information and glucose characteristics derived from the OGTT measurements. The features are well-known as strong predictors of future diabetes in the literature. Here, we first describe the background and of the SAHS, after which we illustrate the machine learning technique used in this study. The results obtained during the training and validation phases are reported in terms of the accuracy, recall and specificity of the classifier models. Since the aim is to identify the high-risk subjects, we optimize the training models so that the recall (true positive rate) is maximized.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{\uppercase{Methodology}}
-% 
+%
 \subsection{San Antonio Heart Study}
-% 
+%
 We extracted the dataset from an epidemiological population study of risk factors related to diabetes and cardiovascular diseases, known as the San Antonio Heart Study (SAHS) \cite{burke_rapid_1999,lorenzo_trend_2006}. The study comprised of 5,158 men and non-pregnant women of Mexican-American and non-Hispanic white ethnicity, aged between \num{25} and \num{64} years and residing in San Antonio, Texas. All the protocols applied in the study were approved by the University of Texas Health Science Center, San Antonio institutional review board. Blood samples of all the participants that went through an overnight fast, were drawn after orally administering a \SI{75}{\gram} dose of glucose.
-After an average follow-up period of \num{7.5} years, the same participants were subjected to another round of OGTT.  The participants in the SAHS study were enrolled in 2 stages, the first from January \num{1979} to December \num{1982}, and the second, from January \num{1984} to December \num{1988} \cite{haffner_hyperinsulinemia_1986}. The reassessment during the follow-up period took place from October \num{1987} to November \num{1990} for the first phase, and October \num{1991} to October \num{1996} for the second phase. For this paper, we analyzed a subset of data from the second phase, with plasma glucose and insulin levels of 1,496 participants  measured at \num{0}, \num{30}, \num{60} and \num{120} minutes at baseline. At the follow-up assessment (average follow-up time of 7.5 years), the participants were classified as having type-2 diabetes (T2D), cardiovascular disease (CVD) or normal. For the T2D diagnosis, the WHO criteria, defining fasting glucose level \SI[round-mode = off,group-separator = {,}]{\ge 126}{\milli\gram\per\deci\liter} or 2-hour glucose level \SI[round-mode = off,group-separator = {,}]{\ge 200}{\milli\gram\per\deci\liter} was followed \cite{wei_effects_1998}. Any participant reportedly taking anti-diabetic medications was also classified as diabetic. For the CVD classification, any cardiovascular event such as a heart attack, stroke or angina reported by the participant, was considered as an identifier. Table \ref{tab:patients} outlines the distribution of patient classification used in this study. In order to construct a binary classifier, we have combined labels, T2D and both (a total of \num{171} participants) indicating diabetes. 
-% 
+After an average follow-up period of \num{7.5} years, the same participants were subjected to another round of OGTT.  The participants in the SAHS study were enrolled in 2 stages, the first from January \num{1979} to December \num{1982}, and the second, from January \num{1984} to December \num{1988} \cite{haffner_hyperinsulinemia_1986}. The reassessment during the follow-up period took place from October \num{1987} to November \num{1990} for the first phase, and October \num{1991} to October \num{1996} for the second phase. For this paper, we analyzed a subset of data from the second phase, with plasma glucose and insulin levels of 1,496 participants  measured at \num{0}, \num{30}, \num{60} and \num{120} minutes at baseline. At the follow-up assessment (average follow-up time of 7.5 years), the participants were classified as having type-2 diabetes (T2D), cardiovascular disease (CVD) or normal. For the T2D diagnosis, the WHO criteria, defining fasting glucose level \SI[round-mode = off,group-separator = {,}]{\ge 126}{\milli\gram\per\deci\liter} or 2-hour glucose level \SI[round-mode = off,group-separator = {,}]{\ge 200}{\milli\gram\per\deci\liter} was followed \cite{wei_effects_1998}. Any participant reportedly taking anti-diabetic medications was also classified as diabetic. For the CVD classification, any cardiovascular event such as a heart attack, stroke or angina reported by the participant, was considered as an identifier. Table \ref{tab:patients} outlines the distribution of patient classification used in this study. In order to construct a binary classifier, we have combined labels, T2D and both (a total of \num{171} participants) indicating diabetes.
+%
 \begin{table}[!htbp]
 % \vspace{-4mm}%Put here to reduce too much white space after table
 \centering
@@ -92,15 +92,15 @@ Healthy &  DMI & CVD & Both\\
 \label{tab:patients}
 % \vspace{-8mm}%Put here to reduce too much white space after table
 \end{table}
-% 
-% 
+%
+%
 \subsection{Feature Selection}
-% 
+%
 We selected \num{10} features for our prediction model consisting of socio-demographic variables such as age and ethnicity, and physiological factors that were either directly measured or derived from the OGTT. These features have individually been used in previous T2DM prediction studies \cite{abdul-ghani_what_2007,abdul-ghani_plasma_2009}. A complete list of features used is shown in Table \ref{tab:features}. Subjects having any missing feature values or labels were excluded before the model generation. We used Matlab to develop the machine learning routines and data processing.  The area under the \SI{2}{\hour} glucose curve ($\textrm{AuG}_{0-120}$) was calculated using the trapezoidal rule, while the Matsuda index (M) was used as defined in \cite{Matsuda1462}. The insulin sensitivity, \( {\Delta I}/{\Delta G}_{0-120} \), where $x = 30, 120$ was calculated using the measured insulin and glucose values at time x during the OGTT.
 
-Figure \ref{fig:ogtt_mean} shows the box plots of the glucose and insulin values obtained during the OGTT at baseline, 30, 60 and \SI{120}{\minute}, where the color associated with the boxes indicates the future label assigned at the the followup assessment. The box plot of the glucose values at \SI{120}{\minute} provides a clear separation of the two classes. However, it must be noted that there are outliers either side of one standard deviation from the median which is depicted by a solid line in the box.
+Figure \ref{fig:ogtt_mean} shows the mean values of all 1,496 subjects the glucose and insulin values obtained during the OGTT at baseline, 30, 60 and \SI{120}{\minute}, where the color associated with the boxes indicates the future label assigned at the the followup assessment. Evidently, the mean glucose values at 60 and \SI{120}{\minute} provides a clear separation of the two classes and tend to exhibit a diverging behaviour. Moreover, no such clear patterns are observed in the insulin curves.
 %
-% 
+%
 \begin{table}[!htbp]
 % \vspace{-4mm}%Put here to reduce too much white space after table
 \centering
@@ -121,50 +121,50 @@ Ethnicity & $\textrm{PG}_0$ & Matsuda Index (M)  \\
 \label{tab:features}
 % \vspace{-8mm}%Put here to reduce too much white space after table
 \end{table}
-% 
-% 
+%
+%
 \begin{figure}[!h]
   \centering
-  \subfigure[]{\includegraphics[width=\linewidth]{boxpl_glucose.tex}}\hfil
-  \subfigure[]{\includegraphics[width=\linewidth]{boxpl_Insulin.tex}}
+  \subfigure[]{\includegraphics[width=\linewidth]{Glucose_curve.tex}}\hfil
+  \subfigure[]{\includegraphics[width=\linewidth]{Insulin_curve.tex}}
 % \vspace*{-6mm}
-      \caption{Box plots showing the distribution of plasma glucose (a), and insulin (b) measurements during the 2-hour OGTT}
+      \caption{Mean distribution of the plasma glucose (a), and insulin (b) measurements during the 2-hour OGTT of the 1,496 subjects}
     \label{fig:ogtt_mean}
     % \vspace{-2mm}%Put here to reduce too much white space after figure
 \end{figure}
-% 
+%
 \subsection{Machine Learning}
-% 
+%
 We used a supervised learning technique in which the classifier labels were known \emph{a priori} from the follow-up data.  The data was partitioned for the training and validation subsets before the classification. This was done to minimize the empirical risk associated with the errors on the training set \cite{vapnik_estimation_2006,vapnik_nature_2000}. We used the binary support vector machines (SVM) that have proven to be very effective in solving complex classification problems in many application domains, in which the data can not be easily separated into two classes. The SVM method aims to find an optimal hyperplane $\mathbf{w}_{0}\cdot \mathbf{x} + b_{0} = 0$, that maximizes the margin $d \sim 1/||\mathbf{w}||$, separating the two classes. The vector $\mathbf{x}$ denotes the training data and the vector $\mathbf{w}_0$ is a vector of weights expressed as a linear combination of the support vectors, $z_i$,
-% 
+%
 \begin{equation}
     \mathbf{w}_0 = \sum ^{N}_{i=1} c_i \mathbf{z_i}.
 \end{equation}
-% 
+%
 where $N$ is the number of support vectors in the new feature space. Once the optimal hyperplane is obtained through the transformation, the linear decision classification function can be expressed as \cite{cortes1995support}:
-% 
+%
 \begin{equation}
-    I(\mathbf{x}) = \mathrm{sign} \sum_{i = 1}^{N} \left( c_i \mathbf{z_i} \cdot \mathbf{x} + b_{0} \right). 
+    I(\mathbf{x}) = \mathrm{sign} \sum_{i = 1}^{N} \left( c_i \mathbf{z_i} \cdot \mathbf{x} + b_{0} \right).
 \end{equation}
-% 
-In this study, we employed the linear SVM kernel by utilizing the Matlab's \texttt{svmtrain} function. The training data was first scaled to have a unit standard deviation. The misclassification cost was configured by setting the value of the \texttt{boxconstraint} parameter to a high value of \num{100}, which would cause a stricter partitioning of the data with respect to the class labels. 
+%
+In this study, we employed the linear SVM kernel by utilizing the Matlab's \texttt{svmtrain} function. The training data was first scaled to have a unit standard deviation. The misclassification cost was configured by setting the value of the \texttt{boxconstraint} parameter to a high value of \num{100}, which would cause a stricter partitioning of the data with respect to the class labels.
 
 To predict the future risk of type-2 diabetes, we defined a positive class (occurrence of diabetes at the follow-up) and a negative class (healthy). As illustrated in Table \ref{tab:patients}, the OGTT data used in this study is heavily unbalanced. With \num{171} positive class instances as compared to \num{1281} that of the negative class, the size of class labels is unbalanced with the ratio of positive-to-negative instances of 1:8. To avoid the problem of overfitting to the majority class during the learning phase of the technique, we under-sampled the majority class (healthy) to the size of the minority class (diabetic) by a randomly selecting equal number of samples. During the prediction model generation, we employed 10-fold cross-validation framework in which \SI{90}{\percent} of the training data, consisting of \num{360} samples was used for training and the remaining \SI{10}{\percent} was used to test the model. To validate the trained models, we used a holdout data set with the same unbalanced ratio of negative-to-positive classes in the original data, i.e., \num{11} samples of the positive class, and \num{88} samples of the negative class. We started our experiments using one feature at a time, and then more number of features were incrementally added. This exercise assists in discovering any feature dependencies. In total, we performed 1,023 classification experiments.  Each of these experiments was trained as a 10-fold cross-validation (CV) and, to minimize the effect of random selection of samples from the majority class, \num{100} iterations were performed for each experiment. Owing to the small sample size of the holdout dataset, this strategy ensures the unbiased reporting of the classifier performance. To maximize reliability of the model to predict diabetes events, we maximized the recall metric during the training phase, which is defined as,
-% 
+%
 \begin{equation}
     Recall = \frac{\mathrm{TP}}{\mathrm{TP} + \mathrm{FN}},
 \end{equation}
-% 
+%
 where TP and FN are the true-positives and false-negatives respectively. During the validation phase, we tracked the confusion matrices for all the models yielding the maximum training recall for all the feature combinations.
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{\uppercase{Results}}
-% 
-The aim of this paper is to devise a machine learning scheme that can identify healthy subjects that are at an increased risk of developing type-2 diabetes. For this, the data used here is a subset of the SAHS that includes the OGTT data of 1,496 healthy subjects at baseline, out of which \num{171} were labeled as diabetic at the follow-up assessment and 1,281 maintained their healthy status. To determine the performance of our prediction models, we use accuracy, recall and specificity of the models. During the training, we emphasized on maximizing the recall of the classifier which in other words, maximizes the identification rate of high-risk diabetes. Using the strategy described in the previous section, we show the performance results that are averaged over \num{100} iterations. 
-% 
-\subsection{Training} 
-% 
+%
+The aim of this paper is to devise a machine learning scheme that can identify healthy subjects that are at an increased risk of developing type-2 diabetes. For this, the data used here is a subset of the SAHS that includes the OGTT data of 1,496 healthy subjects at baseline, out of which \num{171} were labeled as diabetic at the follow-up assessment and 1,281 maintained their healthy status. To determine the performance of our prediction models, we use accuracy, recall and specificity of the models. During the training, we emphasized on maximizing the recall of the classifier which in other words, maximizes the identification rate of high-risk diabetes. Using the strategy described in the previous section, we show the performance results that are averaged over \num{100} iterations.
+%
+\subsection{Training}
+%
 We trained ten prediction models with an increasing number of features. Each of the SVM classifiers was trained through a 10-fold cross-validation. The trained model was obtained by selecting the one that yielded the maximum accuracy averaged over \num{100} iterations. As an example, the feature, $\textrm{AuG}_{0-120}$ provided a mean accuracy of \SI{72}{\percent} which was greater than the accuracy given by all the other one feature models. The model obtained using a combination of two features ($\textrm{AuG}_{0-120}$ and $\textrm{PG}_{120}$) generated \SI{84}{\percent} accuracy. In the meantime, the recall increased from \SI{94}{\percent} to \SI{97}{\percent} by adding one feature. The maximum average accuracy during the training was obtained when four features ($\textrm{AuG}_{0-120}$, $\textrm{PG}_{120}$, age, and ethnicity) were used (see Table \ref{tab:train_perf}). The performance did not improve with further increments in the number of features. This suggests that the newly added features may not be independent to the existing ones.
 %
 \begin{table}[!htbp]
@@ -177,16 +177,16 @@ round-precision = 2
 \toprule
 Features &  Accuracy & Specificity & Recall\\
 \midrule \midrule
-	1	& \num{0.72}	& \num{0.50}	& \num{0.94}	\\	
-	2	& \num{0.84}	& \num{0.75}    & \num{0.97}	\\	
+	1	& \num{0.72}	& \num{0.50}	& \num{0.94}	\\
+	2	& \num{0.84}	& \num{0.75}    & \num{0.97}	\\
 	3	& \num{0.86}	& \num{0.75}    & \num{1}		\\
-	4	& \num{0.89}	& \num{0.78}	& \num{1}		\\	
-	5	& \num{0.86}	& \num{0.72}	& \num{1}		\\	
+	4	& \num{0.89}	& \num{0.78}	& \num{1}		\\
+	5	& \num{0.86}	& \num{0.72}	& \num{1}		\\
 	6	& \num{0.86}	& \num{0.75}	& \num{1}		\\
-	7	& \num{0.89}	& \num{0.78}	& \num{0.97}    \\		
-	8	& \num{0.89}	& \num{0.81}	& \num{0.97}	\\		
-	9	& \num{0.86}	& \num{0.78}	& \num{0.91}	\\		
-	10	& \num{0.81}	& \num{0.78}	& \num{0.81}	\\	
+	7	& \num{0.89}	& \num{0.78}	& \num{0.97}    \\
+	8	& \num{0.89}	& \num{0.81}	& \num{0.97}	\\
+	9	& \num{0.86}	& \num{0.78}	& \num{0.91}	\\
+	10	& \num{0.81}	& \num{0.78}	& \num{0.81}	\\
 \bottomrule
 \end{tabular}
 \caption{The averaged performance of the trained models demonstrating maximum recall and their corresponding accuracy and specificity.}
@@ -194,9 +194,9 @@ Features &  Accuracy & Specificity & Recall\\
 \end{table}
 %
 \subsection{Validation}
-% 
+%
 To validate the trained models, we used a holdout data set with the same unbalanced ratio of positive-to-negative class. Due to the small sample of the minority class and in order to avoid overlapping with the training set, only \num{11} diabetic samples were used. Figure \ref{fig:perf_validation} shows the box plots for the validation recall, accuracy and the specificity of the models that were trained to maximize the recall rate of the classifier. The same trends observed during the training were also seen in the validation phase. The combination of the four features that yielded the best training performance also produced the highest median recall rate. Adding more number of features resulted in slight improvement in the median accuracy. A worsening trend in the performance was observed when the number of features was more than seven. Figure \ref{fig:perf_validation} shows the validation performance of the models with maximized recall during the training.
-% 
+%
 \begin{figure}[!tp]
   \centering
   \subfigure[]{\includegraphics[width=\linewidth]{AbdulGhani_val_SP_bal.tex}}\hfil
@@ -205,16 +205,16 @@ To validate the trained models, we used a holdout data set with the same unbalan
 \caption{The validation performance of the models with maximized training recall. The box plots were obtained after 100 iterations of running the classifier.}
     \label{fig:perf_validation}
 \end{figure}
-% 
-% 
+%
+%
 \section{\uppercase{Discussion}}
 \label{sec:discussion}
-% 
-\noindent Development of the classifiers on an unbalanced dataset poses a typical machine learning problem that results in he trained models being biased towards the majority class. In this study, we balanced the two classes with the aim to get unbiased models in the training. The classification threshold that controls the probability of a sample belonging to a certain class, can be varied to maximize the true positive rate (recall) of the classifier. Validation on the holdout data, on the other hand provides an independent assessment of the classifier. 
+%
+\noindent Development of the classifiers on an unbalanced dataset poses a typical machine learning problem that results in he trained models being biased towards the majority class. In this study, we balanced the two classes with the aim to get unbiased models in the training. The classification threshold that controls the probability of a sample belonging to a certain class, can be varied to maximize the true positive rate (recall) of the classifier. Validation on the holdout data, on the other hand provides an independent assessment of the classifier.
 \section{\uppercase{Conclusions}}
 \label{sec:conclusion}
-% 
-\noindent Diabetes prediction models identify the high-risk population so that a timely population-based intervention could prevent future complications. In this paper, we used the linear support vector machines to construct a prediction model of future development of type-2 diabetes. 
+%
+\noindent Diabetes prediction models identify the high-risk population so that a timely population-based intervention could prevent future complications. In this paper, we used the linear support vector machines to construct a prediction model of future development of type-2 diabetes.
 
 The outcomes of the study show that high values of glucose observed at the \SI{2}{\hour} mark during the OGTT may strongly indicate the potential risk of future development of type-2 diabetes. In a possible extension of this study, the prediction models may be applied on other similar datasets that include the OGTT measurements.
 
@@ -230,4 +230,3 @@ The outcomes of the study show that high values of glucose observed at the \SI{2
 
 \vfill
 \end{document}
-
