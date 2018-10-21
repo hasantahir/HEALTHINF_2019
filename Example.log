@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6840 64-bit) (preloaded format=pdflatex 2018.10.13)  13 OCT 2018 17:11
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6840 64-bit) (preloaded format=pdflatex 2018.10.13)  21 OCT 2018 12:13
 entering extended mode
 **./Example.tex
 (Example.tex
@@ -2752,19 +2752,15 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 ]
-(boxpl_glucose.tex)
-File: boxpl_glucose.tex Graphic file (type tex)
- (boxpl_Insulin.tex)
-File: boxpl_Insulin.tex Graphic file (type tex)
+(Glucose_curve.tex)
+File: Glucose_curve.tex Graphic file (type tex)
+ (Insulin_curve.tex)
+File: Insulin_curve.tex Graphic file (type tex)
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[2]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [3]
-(AbdulGhani_val_SP_bal.tex)
+[2] [3] (AbdulGhani_val_SP_bal.tex)
 File: AbdulGhani_val_SP_bal.tex Graphic file (type tex)
  (AbdulGhani_val_ACC_bal.tex)
 File: AbdulGhani_val_ACC_bal.tex Graphic file (type tex)
@@ -2801,13 +2797,13 @@ LaTeX Font Warning: Size substitutions with differences
 
  ) 
 Here is how much of TeX's memory you used:
- 39370 strings out of 492970
- 926905 string characters out of 3135836
- 1212776 words of memory out of 3000000
- 42637 multiletter control sequences out of 15000+200000
+ 39369 strings out of 492970
+ 926889 string characters out of 3135836
+ 1211647 words of memory out of 3000000
+ 42636 multiletter control sequences out of 15000+200000
  588447 words of font info for 137 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 78i,26n,136p,1949b,2425s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 78i,26n,136p,1949b,3045s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc}<C:/Program Files/Mi
 KTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX 2.9
 /fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/ty
@@ -2816,7 +2812,7 @@ courier/ucrr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/symbol/usyr.pfb
 ><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmb8a.pfb><C:/Program File
 s/MiKTeX 2.9/fonts/type1/urw/times/utmr8a.pfb><C:/Program Files/MiKTeX 2.9/font
 s/type1/urw/times/utmri8a.pfb>
-Output written on Example.pdf (6 pages, 131314 bytes).
+Output written on Example.pdf (6 pages, 118456 bytes).
 PDF statistics:
  57 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
